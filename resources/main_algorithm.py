@@ -1,5 +1,5 @@
 import random
-from resources import  fitness, reproduction 
+from resources import  fitness, regeneration 
 from resources.population import generate_initial_population
 
 # Algoritma Genetika
@@ -30,14 +30,14 @@ def genetic_algorithm(tasks, population_size=10, generations=100, mutation_rate=
             break
 
         # Seleksi: pilih individu terbaik untuk generasi berikutnya
-        selected_population = reproduction.selection(population, fitness_scores)
+        selected_population = regeneration.selection(population, fitness_scores)
 
         # Crossover: buat generasi baru
         next_population = []
         while len(next_population) < population_size:
             parent1, parent2 = random.sample(selected_population, 2)
-            child = reproduction.crossover(parent1, parent2)
-            reproduction.mutate(child, mutation_rate)
+            child = regeneration.crossover(parent1, parent2)
+            regeneration.mutate(child, mutation_rate)
             next_population.append(child)
 
         population = next_population  # Update populasi dengan generasi baru
