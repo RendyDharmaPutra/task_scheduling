@@ -1,10 +1,18 @@
 import random
 
 
-# Fungsi seleksi: memilih orang tua untuk crossover
-def selection(population, fitness_scores):
+def selection(population, fitness_scores, elite_size=2):
+    # Urutkan populasi berdasarkan nilai fitness (terbaik ke terburuk)
     sorted_population = [x for _, x in sorted(zip(fitness_scores, population), key=lambda pair: pair[0])]
-    return sorted_population[:len(sorted_population) // 2]
+
+    # Ambil elit terbaik sesuai ukuran elite_size
+    elite = sorted_population[:elite_size]
+
+    # Ambil sisa populasi terbaik untuk dipilih crossover
+    remaining_population = sorted_population[:len(sorted_population) // 2]
+
+    # Gabungkan elit dengan populasi terpilih untuk crossover
+    return elite + remaining_population
 
 # Fungsi crossover: membuat solusi baru dari dua orang tua
 def crossover(parent1, parent2):
